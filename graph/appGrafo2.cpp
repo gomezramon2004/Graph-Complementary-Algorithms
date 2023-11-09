@@ -3,11 +3,10 @@
 // Deep First Search - Recursive Function
 void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
     visited[currentNode] = true;
-    std::list<int> nested_list = adj_list[currentNode];
     std::cout << currentNode << " ";
     std::list<int>::iterator i;
 
-    for (i = nested_list.begin(); i != nested_list.end(); ++i) {
+    for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
         if (!visited[*i]) {
             recursiveDFS(*i, visited, adj_list);
         }
@@ -26,12 +25,12 @@ void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
     }
 }
 
-// Add an edge to the graph
+// Add an edge to the graph, considering that the graph is directed, so U -> V
 void Graph::addEdge(int u, int v, std::list<int>* &adj_list) {
     adj_list[u].push_back(v);
 }
 
-// Remove an edge to the graph
+// Remove an edge to the graph, considering that the graph is directed, so U -> V
 void Graph::removeEdge(int u, int v, std::list<int>* &adj_list) {
     adj_list[u].remove(v);
 }
