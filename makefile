@@ -4,7 +4,7 @@ TARGET = main
 GRADIR = graph
 
 SRCS = main.cpp \
-		$(GRADIR)/appGrafo.cpp \
+		$(GRADIR)/appGrafo2.cpp \
 
 EXECUTABLE = a.out
 
