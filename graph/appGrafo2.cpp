@@ -1,4 +1,4 @@
-#include "appGrafo.hpp"
+#include "appGrafo2.hpp"
 
 // Deep First Search - Recursive Function
 void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::vector<std::vector<bool>>& adj_matrix) {
