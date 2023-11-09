@@ -12,7 +12,7 @@ class Graph {
         void loadGraph(int n, int m, std::list<int>* &adj_list);
         void addEdge(int u, int v, std::list<int>* &adj_list);
         void removeEdge(int u, int v, std::list<int>* &adj_list);
-        void DFS(int start);
-        void BFS(int start,  std::list<int>* &adj_list);
+        void DFS(int start, std::list<int>* &adj_list);
+        void BFS(int start, std::list<int>* &adj_list);
 };
 
