@@ -126,7 +126,7 @@ void Graph::topologicalSort(int n, int m, std::list<int>* &adj_list) {
 
     for (size_t i = 0; i < n; ++i) {
         if (!visited[i]) {
-            recursiveDFS(i, visited, adj_list);
+            recursiveDFSForTopological(i, visited, adj_list, s);
         }
     }
     
