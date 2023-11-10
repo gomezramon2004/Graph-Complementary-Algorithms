@@ -8,6 +8,8 @@
 class Graph {
     private:
         void recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list);
+        void recursiveDFSWithoutPrint(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list);
+        bool areNodesConnected(std::list<int>* &adj_list);
     public:
         void loadGraph(int n, int m, std::list<int>* &adj_list);
         void addEdge(int u, int v, std::list<int>* &adj_list);

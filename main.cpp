@@ -24,5 +24,7 @@ int main() {
     std::cout << "BFS: ";
     g.BFS(start, adj_list);
 
+    std::cout << "Is tree: " << (g.isTree(n, m, adj_list) ? "true" : "false") << std::endl;
+    std::cout << "Is bipartite: " << (g.bipartiteGraph(n, m, adj_list) ? "true" : "false") << std::endl;
     return 0;
 }

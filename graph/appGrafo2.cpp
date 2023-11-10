@@ -1,5 +1,19 @@
 #include "appGrafo2.hpp"
 
+// Check if a par of nodes are connected at the same path; from the first node to the second one, and vice versa
+bool Graph::areNodesConnected(std::list<int>* &adj_list) {
+    std::vector<bool> visited(adj_list->size(), false);
+    recursiveDFSWithoutPrint(0, visited, adj_list);
+
+    for (size_t i = 0; i < visited.size(); ++i) {
+        if (!visited[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 // Deep First Search - Recursive Function
 void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
     visited[currentNode] = true;
@@ -9,6 +23,18 @@ void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<
     for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
         if (!visited[*i]) {
             recursiveDFS(*i, visited, adj_list);
+        }
+    }
+}
+
+// Deep First Search - Recursive Function without print
+void Graph::recursiveDFSWithoutPrint(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
+    visited[currentNode] = true;
+    std::list<int>::iterator i;
+
+    for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
+        if (!visited[*i]) {
+            recursiveDFSWithoutPrint(*i, visited, adj_list);
         }
     }
 }
@@ -35,11 +61,11 @@ void Graph::removeEdge(int u, int v, std::list<int>* &adj_list) {
     adj_list[u].remove(v);
 }
 
-// Deep First Search - Base Functio
+// Deep First Search - Base Function
 void Graph::DFS(int start, std::list<int>* &adj_list) {
     std::vector<bool> visited(adj_list->size(), false);
     recursiveDFS(start, visited, adj_list);
-    std::cout << std::endl;
+    std::cout << '\n';
 }
 
 // Breadth First Search
@@ -64,5 +90,42 @@ void Graph::BFS(int currentNode, std::list<int>* &adj_list) {
         }
     }
 
-    std::cout << std::endl;
+    std::cout << '\n';
+}
+
+// Check if the graph is a tree
+bool Graph::isTree(int n, int m, std::list<int>* &adj_list) {
+    return n == m + 1 && areNodesConnected(adj_list);
+ }
+
+ // Check if the graph is bipartite
+ bool Graph::bipartiteGraph(int n, int m, std::list<int>* &adj_list) {
+    int currentNode, currentColor;
+    std::vector<int> color(n, -1);
+    std::queue<std::pair<int,int>> q;
+    std::list<int>::iterator i;
+
+     for (int u = 0; u < n; ++u) {
+        if (color[u] == -1) {
+            q.push(std::make_pair(u, 0));
+            color[u] = 0;
+
+            while (!q.empty()) {
+                currentNode = q.front().first;
+                currentColor = q.front().second;
+                q.pop();
+
+                for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
+                    if (color[*i] == -1) {
+                        color[*i] = 1 - currentColor;
+                        q.push(std::make_pair(*i, 1 - currentColor));
+                    } else if (color[*i] == currentColor) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
 }
