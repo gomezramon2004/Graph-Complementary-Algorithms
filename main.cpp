@@ -6,7 +6,7 @@
 int main() {
     Graph g;
     std::list<int>* adj_list;
-    int n, m, start;
+    int n, m;
 
     std::cout << "Introduce the number of nodes: ";
     std::cin >> n;
