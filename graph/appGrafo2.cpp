@@ -19,7 +19,7 @@ bool Graph::areNodesConnected(std::list<int>* &adj_list) {
     return true;
 }
 
-// Deep First Search - Recursive Function without print
+// Deep First Search - Recursive Function 
 void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
     visited[currentNode] = true;
     std::list<int>::iterator i;
@@ -29,6 +29,20 @@ void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<
             recursiveDFS(*i, visited, adj_list);
         }
     }
+}
+
+// Deep First Search - Recursive Function without print
+void Graph::recursiveDFSForTopological(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list, std::stack<int>& s) {
+    visited[currentNode] = true;
+    std::list<int>::iterator i;
+
+    for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
+        if (!visited[*i]) {
+            recursiveDFSForTopological(*i, visited, adj_list, s);
+        }
+    }
+
+    s.push(currentNode);
 }
 
 // Constructor of graph
@@ -103,4 +117,23 @@ bool Graph::isTree(int n, int m, std::list<int>* &adj_list) {
     }
 
     return true;
+}
+
+// Topological Sort
+void Graph::topologicalSort(int n, int m, std::list<int>* &adj_list) {
+    std::stack<int> s;
+    std::vector<bool> visited(adj_list->size(), false);
+
+    for (size_t i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            recursiveDFS(i, visited, adj_list);
+        }
+    }
+    
+    while (!s.empty()) {
+        std::cout << s.top() << " ";
+        s.pop();
+    }
+
+    std::cout << '\n';
 }

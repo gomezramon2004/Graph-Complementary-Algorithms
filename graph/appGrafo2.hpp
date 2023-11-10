@@ -10,6 +10,7 @@ class Graph {
         void addEdge(int u, int v, std::list<int>* &adj_list);
         bool areNodesConnected(std::list<int>* &adj_list);
         void recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list);
+        void recursiveDFSForTopological(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list, std::stack<int>& s);
     public:
         void loadGraph(int n, int m, std::list<int>* &adj_list);
         void BFS(int start, std::list<int>* &adj_list);
@@ -17,4 +18,3 @@ class Graph {
         bool bipartiteGraph(int n, int m, std::list<int>* &adj_list);
         void topologicalSort(int n, int m, std::list<int>* &adj_list);
 };
-
