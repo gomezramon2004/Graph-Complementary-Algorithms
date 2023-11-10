@@ -1,9 +1,14 @@
 #include "appGrafo2.hpp"
 
+// Add an edge to the graph, considering that the graph is directed, so U -> V
+void Graph::addEdge(int u, int v, std::list<int>* &adj_list) {
+    adj_list[u].push_back(v);
+}
+
 // Check if a par of nodes are connected at the same path; from the first node to the second one, and vice versa
 bool Graph::areNodesConnected(std::list<int>* &adj_list) {
     std::vector<bool> visited(adj_list->size(), false);
-    recursiveDFSWithoutPrint(0, visited, adj_list);
+    recursiveDFS(0, visited, adj_list);
 
     for (size_t i = 0; i < visited.size(); ++i) {
         if (!visited[i]) {
@@ -14,27 +19,14 @@ bool Graph::areNodesConnected(std::list<int>* &adj_list) {
     return true;
 }
 
-// Deep First Search - Recursive Function
+// Deep First Search - Recursive Function without print
 void Graph::recursiveDFS(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
     visited[currentNode] = true;
-    std::cout << currentNode << " ";
     std::list<int>::iterator i;
 
     for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
         if (!visited[*i]) {
             recursiveDFS(*i, visited, adj_list);
-        }
-    }
-}
-
-// Deep First Search - Recursive Function without print
-void Graph::recursiveDFSWithoutPrint(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list) {
-    visited[currentNode] = true;
-    std::list<int>::iterator i;
-
-    for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
-        if (!visited[*i]) {
-            recursiveDFSWithoutPrint(*i, visited, adj_list);
         }
     }
 }
@@ -49,23 +41,6 @@ void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
         std::cin >> u >> v;
         addEdge(u, v, adj_list);
     }
-}
-
-// Add an edge to the graph, considering that the graph is directed, so U -> V
-void Graph::addEdge(int u, int v, std::list<int>* &adj_list) {
-    adj_list[u].push_back(v);
-}
-
-// Remove an edge to the graph, considering that the graph is directed, so U -> V
-void Graph::removeEdge(int u, int v, std::list<int>* &adj_list) {
-    adj_list[u].remove(v);
-}
-
-// Deep First Search - Base Function
-void Graph::DFS(int start, std::list<int>* &adj_list) {
-    std::vector<bool> visited(adj_list->size(), false);
-    recursiveDFS(start, visited, adj_list);
-    std::cout << '\n';
 }
 
 // Breadth First Search

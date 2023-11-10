@@ -15,16 +15,11 @@ int main() {
 
     g.loadGraph(n, m, adj_list);
 
-    std::cout << "Introduce the start node: ";
-    std::cin >> start;
-
-    std::cout << "DFS: ";
-    g.DFS(start, adj_list);
-
-    std::cout << "BFS: ";
-    g.BFS(start, adj_list);
-
     std::cout << "Is tree: " << (g.isTree(n, m, adj_list) ? "true" : "false") << std::endl;
     std::cout << "Is bipartite: " << (g.bipartiteGraph(n, m, adj_list) ? "true" : "false") << std::endl;
+
+    std::cout << "Topological sort: ";
+    g.topologicalSort(n, m, adj_list);
+
     return 0;
 }
