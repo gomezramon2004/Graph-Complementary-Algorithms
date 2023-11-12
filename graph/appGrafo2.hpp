@@ -13,7 +13,6 @@ class Graph {
         void recursiveDFSForTopological(int currentNode, std::vector<bool>& visited, std::list<int>* &adj_list, std::stack<int>& s);
     public:
         void loadGraph(int n, int m, std::list<int>* &adj_list);
-        void BFS(int start, std::list<int>* &adj_list);
         bool isTree(int n, int m, std::list<int>* &adj_list);
         bool bipartiteGraph(int n, int m, std::list<int>* &adj_list);
         void topologicalSort(int n, int m, std::list<int>* &adj_list);

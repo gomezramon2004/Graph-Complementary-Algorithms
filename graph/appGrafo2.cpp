@@ -57,35 +57,10 @@ void Graph::loadGraph(int n, int m, std::list<int>* &adj_list) {
     }
 }
 
-// Breadth First Search
-void Graph::BFS(int currentNode, std::list<int>* &adj_list) {
-    std::vector<bool> visited(adj_list->size(), false);
-    std::queue<int> q;
-
-    visited[currentNode] = true;
-    q.push(currentNode);
-    std::list<int>::iterator i;
-
-    while (!q.empty()) {
-        currentNode = q.front();
-        std::cout << currentNode << " ";
-        q.pop();
-
-        for (i = adj_list[currentNode].begin(); i != adj_list[currentNode].end(); ++i) {
-            if (!visited[*i]) {
-                visited[*i] = true;
-                q.push(*i);
-            }
-        }
-    }
-
-    std::cout << '\n';
-}
-
 // Check if the graph is a tree
 bool Graph::isTree(int n, int m, std::list<int>* &adj_list) {
     return n == m + 1 && areNodesConnected(adj_list);
- }
+}
 
  // Check if the graph is bipartite
  bool Graph::bipartiteGraph(int n, int m, std::list<int>* &adj_list) {
@@ -94,10 +69,10 @@ bool Graph::isTree(int n, int m, std::list<int>* &adj_list) {
     std::queue<std::pair<int,int>> q;
     std::list<int>::iterator i;
 
-     for (int u = 0; u < n; ++u) {
-        if (color[u] == -1) {
-            q.push(std::make_pair(u, 0));
-            color[u] = 0;
+     for (size_t j = 0; j < n; ++j) {
+        if (color[j] == -1) {
+            q.push(std::make_pair(j, 0));
+            color[j] = 0;
 
             while (!q.empty()) {
                 currentNode = q.front().first;
@@ -122,7 +97,7 @@ bool Graph::isTree(int n, int m, std::list<int>* &adj_list) {
 // Topological Sort
 void Graph::topologicalSort(int n, int m, std::list<int>* &adj_list) {
     std::stack<int> s;
-    std::vector<bool> visited(adj_list->size(), false);
+    std::vector<bool> visited(n, false);
 
     for (size_t i = 0; i < n; ++i) {
         if (!visited[i]) {
